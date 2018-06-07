@@ -1,5 +1,4 @@
 # Maze Solver
-Maze solver in Python (BFS and A*)
 
 ### Screenshot 1: A* path finding
 ### Screenshot 2: OpenSet and ClosedSet during A* execution
