@@ -25,7 +25,7 @@ done = False
 clock = pygame.time.Clock()
 
 # Setup
-cols = rows = 16
+cols = rows = 32
 
 allow_diagonals = True
 show_visited = False
@@ -59,10 +59,10 @@ end.wall = False
 # Show buttons
 randomize      = Button(width + 25, 30 + 0 * 55, 150, 50, 'Random',     (255, 0, 0))
 clear          = Button(width + 25, 30 + 1 * 55, 150, 50, 'Clear',      (0, 0, 255))
-start          = Button(width + 25, 30 + 3 * 55, 150, 50, 'A*',         (0, 255, 0))
-start_bfs      = Button(width + 25, 30 + 4 * 55, 150, 50, 'BFS',        (0, 255, 0))
-start_path     = Button(width + 25, 30 + 6 * 55, 150, 50, 'A* + PATH',  (0, 255, 0))
-start_bfs_path = Button(width + 25, 30 + 7 * 55, 150, 50, 'BFS + PATH', (0, 255, 0))
+start          = Button(width + 25, 30 + 3 * 55, 150, 50, 'A*',         (255, 5, 250))
+start_bfs      = Button(width + 25, 30 + 4 * 55, 150, 50, 'BFS',        (255, 5, 250))
+start_path     = Button(width + 25, 30 + 6 * 55, 150, 50, 'A* + PATH',  (255, 5, 250))
+start_bfs_path = Button(width + 25, 30 + 7 * 55, 150, 50, 'BFS + PATH', (255, 5, 250))
 
 
 def clear_grid():
@@ -91,7 +91,7 @@ start_enable = False
 start_enable_rec = False
 
 
-def start_grid():
+def start_general():
     global openSet
     global closedSet
     global path
@@ -104,26 +104,17 @@ def start_grid():
     start.wall = False
     end.wall = False
 
+
+def start_grid():
+    start_general()
     global start_enable
     start_enable = True
 
 
-def start_grid_rec():
-    global openSet
-    global closedSet
-    global path
-    openSet = []
-    closedSet = []
-    path = []
-    start = grid[0][0]
-    openSet.append(start)
-    end = grid[cols - 1][rows - 1]
-    start.wall = False
-    end.wall = False
-
+def start_grid_bfs():
+    start_general()
     global start_enable_rec
     start_enable_rec = True
-
 
 
 time_start = 0
@@ -157,7 +148,7 @@ while not done:
                 time_start = current_milli_time()
                 hold = False
                 show_visited = False
-                start_grid_rec()
+                start_grid_bfs()
 
             if start_path.rect.collidepoint(pos) > 0:
                 time_start = current_milli_time()
@@ -169,7 +160,7 @@ while not done:
                 time_start = current_milli_time()
                 hold = False
                 show_visited = True
-                start_grid_rec()
+                start_grid_bfs()
 
             if len(clicked_sprites) > 0:
                 # print(pos)
